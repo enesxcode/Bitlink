@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="light"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitLink URL Shortener - Shorten Your Links Instantly!</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/x-icon">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="BitLink is a fast and free online URL shortener. Shorten long links into neat, shareable, and trackable short URLs instantly.">
+    <meta name="keywords" content="URL shortener, link shortener, free URL shortener, shorten links, quick link, BitLink, URL shortener, link shortener, free URL shortener, shorten link, QuickLink, bitlink, tiny URL, shorten URL, online URL shortener">
+    <meta name="author" content="Ernest Frimpong">
+
+    <meta property="og:title" content="BitLink - The Fast & Free URL Shortener">
+    <meta property="og:description" content="Shorten long URLs quickly and easily with BitLink. Get concise, shareable links in an instant!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bitlink.netlify.app/">
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Link to Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<body class="flex flex-col min-h-screen font-inter">
+
+  <!-- Header -->
+  <header class="text-white p-4 shadow-lg transition-colors duration-300 bg-blue-700 dark:bg-gray-800">
+    <div class="container mx-auto flex items-center justify-between">
+      <h1 class="text-3xl font-extrabold flex items-center gap-2">
+        <span class="text-4xl dark:text-gray-400">🔗</span> BitLink
+      </h1>
+      <nav>
+        <button id="themeToggle" class="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-600 text-white font-semibold transition-colors duration-300 dark:bg-gray-700 dark:hover:bg-gray-600 flex items-center justify-center gap-2">
+          <span id="sunIcon" class="w-5 h-5 hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.58 6.57a.75.75 0 0 0-1.06 0L4.92 7.02a.75.75 0 0 0 0 1.06l1.59 1.59a.75.75 0 0 0 1.06 0l1.59-1.59a.75.75 0 0 0 0-1.06ZM16.42 6.57a.75.75 0 0 1 0 1.06l-1.59 1.59a.75.75 0 0 1-1.06 0l-1.59-1.59a.75.75 0 0 1 1.06-1.06l1.59 1.59a.75.75 0 0 1 0 1.06ZM12 7.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9ZM18.75 12a.75.75 0 0 1 .75-.75h2.25a.75.75 0 0 1 0 1.5h-2.25a.75.75 0 0 1-.75-.75ZM16.42 17.43a.75.75 0 0 0 1.06 0l1.59-1.59a.75.75 0 0 0 0-1.06l-1.59-1.59a.75.75 0 0 0-1.06 0l-1.59 1.59a.75.75 0 0 0 0 1.06ZM7.58 17.43a.75.75 0 0 1-1.06 0l-1.59-1.59a.75.75 0 0 1 0-1.06l1.59-1.59a.75.75 0 0 1 1.06 0l1.59 1.59a.75.75 0 0 1 0 1.06ZM12 18.75a.75.75 0 0 1-.75.75v2.25a.75.75 0 0 1 1.5 0v-2.25a.75.75 0 0 1-.75-.75Z" />
+            </svg>  
+          </span>
+          <span id="moonIcon" class="w-5 h-5 hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .184 1.06l-3.17 4.99c.75.05 1.493.187 2.228.406 1.579.467 3.037 1.492 4.257 2.92a10.875 10.875 0 0 1 4.516 6.002c1.748 4.242.023 8.324-4.22 9.473-4.244 1.15-8.326-.574-9.474-4.817-1.15-4.243.574-8.324 4.817-9.473-.01.003-.02.005-.03.007a.75.75 0 0 1-.223-.746l3.204-5.04a.75.75 0 0 1 1.06-.184Zm.378 2.016 2.094 3.298a.75.75 0 1 0 1.25-.992L11.156 2.74a.75.75 0 0 0-1.25.992Z" clip-rule="evenodd" />
+            </svg>
+          </span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-grow flex items-center justify-center p-4">
+    <div class="max-w-lg w-full text-center">
+      <h2 class="h2 text-3xl font-bold text-gray-800 mb-6 transition-colors duration-300">Shorten Your URL</h2>
+      <p class="text-gray-400 mb-8 dark:text-gray-400 transition-colors duration-300">Paste your long URL below to get a neat, short link.</p>
+
+      <form id="shortenForm" class="rounded-xl shadow-2xl p-8 md:p-10 space-y-6 transform transition-all duration-300 hover:scale-[1.02] dark:bg-gray-800 dark:shadow-none dark:border dark:border-gray-700">
+        <div class="relative flex flex-col sm:flex-row gap-2 mb-4">
+          <input
+            type="url"
+            id="long_url"
+            name="long_url"
+            placeholder="e.g., https://www.google.com/very/long/"
+            class="flex-grow p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500 text-gray-800 text-lg transition duration-300 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-600"
+            required
+          />
+          <div class="flex gap-2 justify-end sm:justify-start mt-2 sm:mt-0">
+            <!-- Utility Buttons -->
+            <button
+              type="button"
+              id="pasteButton"
+              onclick="pasteFromClipboard()"
+              class="btn-utility px-4 py-2 rounded-lg font-semibold text-sm sm:text-base whitespace-nowrap shadow-sm hover:shadow-md hidden"
+            >
+              Paste
+            </button>
+            <button
+              type="button"
+              id="clearButton"
+              onclick="clearInput()"
+              class="btn-utility px-4 py-2 rounded-lg font-semibold text-sm sm:text-base whitespace-nowrap shadow-sm hover:shadow-md hidden"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- Shorten Button -->
+        <button
+          type="submit"
+          id="shortenButton"
+          class="w-full btn-primary text-white font-bold py-4 px-6 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center"
+        >
+          <span id="buttonText">Shorten URL</span>
+          <div id="loadingSpinner" class="spinner ml-2 hidden"></div>
+        </button>
+      </form>
+
+      <!-- Results -->
+      <div id="resultsContainer" class="mt-8"></div>
+
+      <!-- Footer -->
+      <div class="mt-8 text-gray-600 text-sm dark:text-gray-400 transition-colors duration-300">
+        <p>&copy; 2025 BitLink. All rights reserved.</p>
+        <p>Built with Flask and <a href="https://tailwindcss.com/" target="_blank" class="text-blue-500 hover:underline dark:text-blue-400">Tailwind CSS</a>.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- JavaScript -->
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
