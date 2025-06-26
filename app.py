@@ -46,5 +46,5 @@ def shorten_url_api():
         return jsonify({"error_message": f"An unexpected server error occurred: {e}"}), 500
 
 if __name__ == '__main__':
-    # Run the Flask app in debug mode (development only!)
-    app.run(debug=True)
+    # Run the Flask app 
+    app.run(host="0.0.0.0", port=8080, debug=True)
