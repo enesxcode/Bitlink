@@ -40,10 +40,7 @@ def shorten_url_api():
         return jsonify({"shortened_url": shortened_url}), 200 # Success response
     except pyshorteners.exceptions.ShorteningErrorException as e:
         # Specific error from pyshorteners (e.g., invalid URL format, service issue)
-        return jsonify({"error_message": f"Error shortening URL: {e}"}), 500
-    except Exception as e:
-        # Catch any other unexpected errors
-        return jsonify({"error_message": f"An unexpected server error occurred: {e}"}), 500
+        return jsonify({"error_message": str(e)}), 400
 
 if __name__ == '__main__':
     # Run the Flask app 
